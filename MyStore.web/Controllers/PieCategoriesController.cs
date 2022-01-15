@@ -111,6 +111,12 @@ namespace MyStore.web.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             PieCategory pieCategory = db.PieCategories.Find(id);
+
+            foreach (var p in pieCategory.Pies)
+            {
+                p.PieCategoryID = null;
+            }
+
             db.PieCategories.Remove(pieCategory);
             db.SaveChanges();
             return RedirectToAction("Index");

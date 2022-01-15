@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using MyStore.web.DataAccess;
 using MyStore.web.Models;
+using MyStore.web.ViewModels;
 
 namespace MyStore.web.Controllers
 {
@@ -18,21 +19,37 @@ namespace MyStore.web.Controllers
         // GET: Pies
         public ActionResult Index(string category, string search)
         {
+            PieIndexViewModel viewModel = new PieIndexViewModel();
+
             var pies = db.Pies.Include(p => p.Category);
+
+            if (!String.IsNullOrEmpty(search))
+            {
+                pies = pies.Where(p => p.Name.Contains(search) ||
+                                       p.Description.Contains(search) ||
+                                       p.Category.Name.Contains(search));
+                viewModel.Search = search;
+            }
+
+            viewModel.CatsWithCount = from matchingPies in pies
+                where
+                    matchingPies.PieCategoryID != null
+                group matchingPies by
+                    matchingPies.Category.Name into
+                    catGroup
+                select new CategoryWithCount()
+                {
+                    CategoryName = catGroup.Key,
+                    PieCatCount = catGroup.Count()
+                };
 
             if (!String.IsNullOrEmpty(category))
             {
                 pies = pies.Where(p => p.Category.Name == category);
             }
 
-            if (!String.IsNullOrEmpty(search))
-            {
-                pies = pies.Where(p => p.Name.Contains(search) ||
-                                               p.Description.Contains(search) ||
-                                               p.Category.Name.Contains(search));
-            }
-
-            return View(pies.ToList());
+            viewModel.Pies = pies;
+            return View(viewModel);
         }
 
         // GET: Pies/Details/5
