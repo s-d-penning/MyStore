@@ -139,9 +139,17 @@
     <Compile Include="Migrations\202201142114294_InitialDatabase.Designer.cs">
       <DependentUpon>202201142114294_InitialDatabase.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202201142214070_PieCategoryNameValidation.cs" />
-    <Compile Include="Migrations\202201142214070_PieCategoryNameValidation.Designer.cs">
-      <DependentUpon>202201142214070_PieCategoryNameValidation.cs</DependentUpon>
+    <Compile Include="Migrations\202201150748588_Synch_1.cs" />
+    <Compile Include="Migrations\202201150748588_Synch_1.Designer.cs">
+      <DependentUpon>202201150748588_Synch_1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202201150844317_Synch_2.cs" />
+    <Compile Include="Migrations\202201150844317_Synch_2.Designer.cs">
+      <DependentUpon>202201150844317_Synch_2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202201150845551_Synch_3.cs" />
+    <Compile Include="Migrations\202201150845551_Synch_3.Designer.cs">
+      <DependentUpon>202201150845551_Synch_3.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Pie.cs" />
@@ -318,8 +326,14 @@
     <EmbeddedResource Include="Migrations\202201142114294_InitialDatabase.resx">
       <DependentUpon>202201142114294_InitialDatabase.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202201142214070_PieCategoryNameValidation.resx">
-      <DependentUpon>202201142214070_PieCategoryNameValidation.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202201150748588_Synch_1.resx">
+      <DependentUpon>202201150748588_Synch_1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201150844317_Synch_2.resx">
+      <DependentUpon>202201150844317_Synch_2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201150845551_Synch_3.resx">
+      <DependentUpon>202201150845551_Synch_3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

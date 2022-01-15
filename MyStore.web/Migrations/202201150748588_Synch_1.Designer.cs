@@ -7,13 +7,13 @@ namespace MyStore.web.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class PieCategoryNameValidation : IMigrationMetadata
+    public sealed partial class Synch_1 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(PieCategoryNameValidation));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Synch_1));
         
         string IMigrationMetadata.Id
         {
-            get { return "202201142214070_PieCategoryNameValidation"; }
+            get { return "202201150748588_Synch_1"; }
         }
         
         string IMigrationMetadata.Source

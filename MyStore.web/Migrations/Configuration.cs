@@ -46,11 +46,6 @@ namespace MyStore.web.Migrations
                 },
                 new Pie
                 {
-                    Name = "Cheese cake", Description = "Plain cheese cake. Plain pleasure.", Price = 4.99M,
-                    PieCategoryID = categories.Single(c => c.Name == "Cheese cakes").ID
-                },
-                new Pie
-                {
                     Name = "Apple pie", Description = "Our famous apple pie", Price = 4.99M,
                     PieCategoryID = categories.Single(c => c.Name == "Fruit").ID
                 },
