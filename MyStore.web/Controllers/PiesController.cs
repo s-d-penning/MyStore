@@ -1,14 +1,14 @@
-﻿using System;
+﻿using MyStore.web.DataAccess;
+using MyStore.web.Models;
+using MyStore.web.ViewModels;
+using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using MyStore.web.DataAccess;
-using MyStore.web.Models;
-using MyStore.web.ViewModels;
 
 namespace MyStore.web.Controllers
 {
@@ -17,7 +17,7 @@ namespace MyStore.web.Controllers
         private StoreContext db = new StoreContext();
 
         // GET: Pies
-        public ActionResult Index(string category, string search)
+        public ActionResult Index(string category, string search, string sortBy, int? page)
         {
             PieIndexViewModel viewModel = new PieIndexViewModel();
 
@@ -46,9 +46,40 @@ namespace MyStore.web.Controllers
             if (!String.IsNullOrEmpty(category))
             {
                 pies = pies.Where(p => p.Category.Name == category);
+                viewModel.Category = category;
             }
 
-            viewModel.Pies = pies;
+            //sort the results
+            switch (sortBy)
+            {
+                case "price_lowest":
+                {
+                    pies = pies.OrderBy(p => p.Price);
+                    break;
+                }
+                case "price_highest":
+                {
+                    pies = pies.OrderByDescending(p => p.Price);
+                    break;
+                }
+                default:
+                {
+                    pies = pies.OrderBy(p => p.Name);
+                    break;
+                }
+            }
+
+            const int PageItems = 3;
+            int currentPage = (page ?? 1);
+            viewModel.Pies = pies.ToPagedList(currentPage, PageItems);
+            viewModel.SortBy = sortBy;
+
+            viewModel.Sorts = new Dictionary<string, string>
+            {
+                {"Price low to high", "price_lowest" },
+                {"Price high to low", "price_highest" }
+            };
+
             return View(viewModel);
         }
 

@@ -1,18 +1,24 @@
 ﻿@model MyStore.web.ViewModels.PieIndexViewModel
+@using PagedList.Mvc
 
 @{
     ViewBag.Title = "Index";
 }
 
 <h2>Index</h2>
+<p>
+    @(String.IsNullOrWhiteSpace(Model.Search) ? "Showing all" : "You search for " + Model.Search + " found") @Model.Pies.TotalItemCount pies
+</p>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 
-    @using (Html.BeginForm("Index", "Pies", FormMethod.Get))
+    @using (Html.BeginRouteForm("PiesIndex", FormMethod.Get))
     {
         <label>Filter by category:</label>
         @Html.DropDownListFor(vm => vm.Category, Model.CatFilterItems, "All");
+        <label>Sort by:</label>
+        @Html.DropDownListFor(vm => vm.SortBy, new SelectList(Model.Sorts, "Value", "Key"), "Default")
         <input type="submit" value="Filter" />
         <input type="hidden" name="Search" id="Search" value="@Model.Search" />
     }
@@ -59,3 +65,15 @@
     }
 
 </table>
+
+<div>
+    Page @(Model.Pies.PageCount < Model.Pies.PageNumber ? 0 : Model.Pies.PageNumber) of @Model.Pies.PageCount
+    @Html.PagedListPager(Model.Pies, page => Url.Action("Index",
+        new
+            {
+                category = @Model.Category,
+            Search = @Model.Search,
+            sortBy = @Model.SortBy,
+            page
+        }))
+</div>
